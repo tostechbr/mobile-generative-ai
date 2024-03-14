@@ -1,8 +1,9 @@
 import React from 'react';
+
 import { StyleSheet, View, Text, Image, FlatList, TouchableOpacity } from 'react-native';
 import { AntDesign, FontAwesome5, MaterialCommunityIcons } from '@expo/vector-icons';
 
-const generateRandomImages = (count) => {
+const generateRandomImages = (count: number) => {
     return Array.from({ length: count }, (_, index) => ({
         key: String(index),
         uri: `https://via.placeholder.com/100`,
@@ -12,7 +13,7 @@ const generateRandomImages = (count) => {
 const DATA = generateRandomImages(20);
 
 export default function HomeScreen() {
-    const renderItem = ({ item }) => {
+    const renderItem = ({ item }: any) => {
         return (
             <TouchableOpacity style={styles.item}>
                 <Image
