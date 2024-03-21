@@ -1,7 +1,6 @@
 import React from 'react';
 
-import { StyleSheet, View, Text, Image, FlatList, TouchableOpacity } from 'react-native';
-import { AntDesign, FontAwesome5, MaterialCommunityIcons } from '@expo/vector-icons';
+import { StyleSheet, View, Image, FlatList, TouchableOpacity } from 'react-native';
 
 const generateRandomImages = (count: number) => {
     return Array.from({ length: count }, (_, index) => ({
@@ -17,6 +16,7 @@ export default function HomeScreen() {
         return (
             <TouchableOpacity style={styles.item}>
                 <Image
+
                     source={{ uri: item.uri }}
                     style={styles.thumbnail}
                     onError={(e) => console.log('Image loading error:', e.nativeEvent.error)}
@@ -28,7 +28,6 @@ export default function HomeScreen() {
     return (
         <View style={styles.container}>
             <View style={styles.header}>
-                <Text style={styles.headerText}>Home</Text>
             </View>
             <FlatList
                 data={DATA}
@@ -37,11 +36,6 @@ export default function HomeScreen() {
                 numColumns={3}
                 style={styles.listImage}
             />
-            <View style={styles.navBar}>
-                <AntDesign name="home" size={24} color="white" />
-                <FontAwesome5 name="plus-circle" size={24} color="white" />
-                <MaterialCommunityIcons name="account" size={24} color="white" />
-            </View>
         </View>
     );
 }
@@ -52,7 +46,6 @@ const styles = StyleSheet.create({
         backgroundColor: 'tomato',
     },
     header: {
-        backgroundColor: 'tomato',
         padding: 10,
         flex: .2,
     },
@@ -73,24 +66,12 @@ const styles = StyleSheet.create({
         width: 100,
         height: 100,
         margin: 5,
+        borderRadius: 8
     },
     item: {
         alignItems: 'center',
         justifyContent: 'center',
         flex: 1,
         margin: 1,
-    },
-    navBar: {
-        position: 'absolute',
-        bottom: 10,
-        left: 10,
-        right: 10,
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        backgroundColor: 'black',
-        padding: 10,
-        borderRadius: 30,
-        borderWidth: 1,
-        borderColor: 'white',
     },
 });
