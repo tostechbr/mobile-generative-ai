@@ -27,6 +27,20 @@ const ButtonBar: React.FC<ButtonBarProps> = ({ activeScreen }) => {
             {/* <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
                 <MaterialCommunityIcons name="account" size={24} color={getIconColor('Profile')} />
             </TouchableOpacity> */}
+            {/* <View style={styles.bottomNavigation}>
+        <TouchableOpacity style={styles.navButton}>
+          <Icon name="home" size={24} color="white" />
+          <Text style={styles.navText}>Home</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.navButton}>
+          <Icon name="create" size={24} color="white" />
+          <Text style={styles.navText}>Create</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.navButton}>
+          <Icon name="account-circle" size={24} color="white" />
+          <Text style={styles.navText}>Account</Text>
+        </TouchableOpacity>
+      </View> */}
         </View>
     );
 };

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { StyleSheet, View, Image, FlatList, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Image, FlatList, TouchableOpacity, Text } from 'react-native';
 
 const generateRandomImages = (count: number) => {
     return Array.from({ length: count }, (_, index) => ({
@@ -16,7 +16,6 @@ export default function HomeScreen() {
         return (
             <TouchableOpacity style={styles.item}>
                 <Image
-
                     source={{ uri: item.uri }}
                     style={styles.thumbnail}
                     onError={(e) => console.log('Image loading error:', e.nativeEvent.error)}
