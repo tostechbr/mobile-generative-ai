@@ -4,6 +4,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import ButtonBar from './components/ButtonBar';
 import HomeScreen from './pages/HomeScreen';
 import Chat from './pages/Chat';
+import ProfileScreen from './pages/Profile';
 
 const Tab = createBottomTabNavigator();
 
@@ -12,6 +13,7 @@ function MyTabs() {
     <Tab.Navigator tabBar={(props) => <ButtonBar {...props} activeScreen={props.state.routeNames[props.state.index]} />}>
       <Tab.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
       <Tab.Screen name="Chat" component={Chat} options={{ headerShown: false }} />
+      <Tab.Screen name="Profile" component={ProfileScreen} options={{ headerShown: false }} />
     </Tab.Navigator>
   );
 }

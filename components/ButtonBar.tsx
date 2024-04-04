@@ -1,7 +1,17 @@
 import React from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
-import { AntDesign, FontAwesome5, MaterialCommunityIcons } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native'; // Importe useNavigation
+import { AntDesign, FontAwesome5, MaterialIcons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native'; 
+import { StackNavigationProp } from '@react-navigation/stack';
+
+
+type RootStackParamList = {
+    Home: undefined;
+    Chat: undefined;
+    Profile: undefined;
+  };
+  
+  type NavigationProp = StackNavigationProp<RootStackParamList>;
 
 
 interface ButtonBarProps {
@@ -24,23 +34,9 @@ const ButtonBar: React.FC<ButtonBarProps> = ({ activeScreen }) => {
             <TouchableOpacity onPress={() => navigation.navigate('Chat')}>
                 <FontAwesome5 name="plus-circle" size={24} color={getIconColor('Chat')} />
             </TouchableOpacity>
-            {/* <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
-                <MaterialCommunityIcons name="account" size={24} color={getIconColor('Profile')} />
-            </TouchableOpacity> */}
-            {/* <View style={styles.bottomNavigation}>
-        <TouchableOpacity style={styles.navButton}>
-          <Icon name="home" size={24} color="white" />
-          <Text style={styles.navText}>Home</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.navButton}>
-          <Icon name="create" size={24} color="white" />
-          <Text style={styles.navText}>Create</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.navButton}>
-          <Icon name="account-circle" size={24} color="white" />
-          <Text style={styles.navText}>Account</Text>
-        </TouchableOpacity>
-      </View> */}
+            <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+                <MaterialIcons name="account-circle" size={24} color={getIconColor('Profile')} />
+            </TouchableOpacity>
         </View>
     );
 };
