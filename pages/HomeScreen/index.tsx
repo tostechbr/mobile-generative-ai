@@ -59,7 +59,8 @@ const styles = StyleSheet.create({
         padding: 20,
         backgroundColor: 'red',
         borderTopLeftRadius: 40,
-        borderTopRightRadius: 40
+        borderTopRightRadius: 40,
+        paddingBottom: 90,
     },
     thumbnail: {
         width: 100,
