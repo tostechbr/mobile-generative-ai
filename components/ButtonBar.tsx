@@ -32,7 +32,7 @@ const ButtonBar: React.FC<ButtonBarProps> = ({ activeScreen }) => {
                 <AntDesign name="home" size={24} color={getIconColor('Home')} />
             </TouchableOpacity>
             <TouchableOpacity onPress={() => navigation.navigate('Chat')}>
-                <FontAwesome5 name="plus-circle" size={24} color={getIconColor('Chat')} />
+                <FontAwesome5 name="plus-cSircle" size={24} color={getIconColor('Chat')} />
             </TouchableOpacity>
             <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
                 <MaterialIcons name="account-circle" size={24} color={getIconColor('Profile')} />
