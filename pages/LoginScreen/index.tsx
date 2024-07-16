@@ -1,86 +1,75 @@
-// pages/LoginScreen/index.js
+import React, { useState } from 'react';
+import { View, Text, TextInput, Button, Alert } from 'react-native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RouteProp } from '@react-navigation/native';
+import { login, register } from '../../api';
 
-import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
-import * as Google from 'expo-auth-session/providers/google';
-import { auth } from '../../firebaseConfig';
-import { GoogleAuthProvider, signInWithCredential } from 'firebase/auth';
+type RootStackParamList = {
+  Login: undefined;
+  Home: undefined;
+};
 
-const LoginScreen = () => {
-  const [request, response, promptAsync] = Google.useIdTokenAuthRequest({
-    clientId: '890732176134-rqm1jtbp02mu9npkqsg9k8g9p4hi1nft.apps.googleusercontent.com',
-  });
+type LoginScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Login'>;
+type LoginScreenRouteProp = RouteProp<RootStackParamList, 'Login'>;
 
-  React.useEffect(() => {
-    if (response?.type === 'success') {
-      const { id_token } = response.params;
+type Props = {
+  navigation: LoginScreenNavigationProp;
+  route: LoginScreenRouteProp;
+  setIsLoggedIn: (value: boolean) => void;
+};
 
-      const credential = GoogleAuthProvider.credential(id_token);
-      signInWithCredential(auth, credential)
-        .then((result) => {
-          console.log('Login successful', result);
-        })
-        .catch((error) => {
-          console.log('Login error', error);
-        });
+const LoginScreen: React.FC<Props> = ({ navigation, setIsLoggedIn }) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [isLogin, setIsLogin] = useState(true); // Alternar entre login e registro
+
+  const handleRegister = async () => {
+    try {
+      await register(email, password);
+      Alert.alert('Sucesso', 'Usuário registrado com sucesso!');
+      setIsLogin(true);
+    } catch (error: any) {
+      Alert.alert('Erro', error.message || 'Erro ao registrar');
     }
-  }, [response]);
+  };
+
+  const handleLogin = async () => {
+    try {
+      await login(email, password);
+      Alert.alert('Sucesso', 'Login realizado com sucesso!');
+      setIsLoggedIn(true);
+      navigation.replace('Home');
+    } catch (error: any) {
+      Alert.alert('Erro', error.message || 'Erro ao fazer login');
+    }
+  };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Chatbot</Text>
-      <Text style={styles.description}>Descrição do APP para criar imagens</Text>
-      <TouchableOpacity
-        style={styles.googleButton}
-        onPress={() => {
-          promptAsync();
-        }}
-        disabled={!request}
-      >
-        <Image
-          source={require('../../assets/google-icon.png')}
-          style={styles.googleIcon}
-        />
-        <Text style={styles.googleButtonText}>Continue With Google</Text>
-      </TouchableOpacity>
+    <View style={{ padding: 20 }}>
+      <Text>{isLogin ? 'Login' : 'Registrar'}</Text>
+      <TextInput
+        placeholder="Email"
+        value={email}
+        onChangeText={setEmail}
+        style={{ height: 40, borderColor: 'gray', borderWidth: 1, marginBottom: 10 }}
+      />
+      <TextInput
+        placeholder="Senha"
+        value={password}
+        onChangeText={setPassword}
+        secureTextEntry
+        style={{ height: 40, borderColor: 'gray', borderWidth: 1, marginBottom: 10 }}
+      />
+      <Button
+        title={isLogin ? 'Login' : 'Registrar'}
+        onPress={isLogin ? handleLogin : handleRegister}
+      />
+      <Button
+        title={`Ir para ${isLogin ? 'Registrar' : 'Login'}`}
+        onPress={() => setIsLogin(!isLogin)}
+      />
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#fff',
-  },
-  title: {
-    fontSize: 32,
-    fontWeight: 'bold',
-    marginBottom: 10,
-  },
-  description: {
-    fontSize: 16,
-    color: '#666',
-    marginBottom: 20,
-  },
-  googleButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#fff',
-    padding: 10,
-    borderRadius: 5,
-    elevation: 2,
-  },
-  googleIcon: {
-    width: 24,
-    height: 24,
-    marginRight: 10,
-  },
-  googleButtonText: {
-    fontSize: 16,
-    color: '#000',
-  },
-});
 
 export default LoginScreen;
